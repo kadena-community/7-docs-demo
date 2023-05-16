@@ -22,25 +22,16 @@ The following commands are using `my-namespace` as set in [config.ts](./config.t
 
 ## Prepare db
 
-Create a Supabase account if you don't have one already.
-
-The following command does not actually do anything. Instead, it gives you an all-batteries-included SQL query to run in
-your [Supabase project area](https://app.supabase.com/projects)'s SQL Editor:
+Create a Pinecone account if you don't have one already. Then create an index:
 
 ```shell
-npx 7d supabase-create-table --namespace my-namespace
+npx 7-docs pinecone-create-index --index my-namespace
 ```
 
 ## Ingest
 
 ```shell
-npx 7d ingest \
-  --source github \
-  --repo reactjs/react.dev \
-  --files 'src/content/reference/react/*.md' \
-  --files 'src/content/reference/react-dom/*.md' \
-  --files 'src/content/learn/*.md' \
-  --namespace my-namespace
+npx 7-docs ingest --source github --repo kadena-community/docs --files 'docs/**/*.md' --namespace kadena-docs
 ```
 
 ## Run

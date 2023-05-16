@@ -1,18 +1,15 @@
-import { createClient } from '@supabase/supabase-js';
-import { getCompletionHandler, supabase } from '@7-docs/edge';
+import { getCompletionHandler, pinecone } from '@7-docs/edge';
 import { namespace, prompt, system } from '../../../config';
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_API_KEY = process.env.SUPABASE_API_KEY;
+const PINECONE_URL = process.env.PINECONE_URL;
+const PINECONE_API_KEY = process.env.PINECONE_API_KEY;
 
 if (!OPENAI_API_KEY) throw new Error('Env var OPENAI_API_KEY missing');
-if (!SUPABASE_URL) throw new Error('Env var SUPABASE_URL missing');
-if (!SUPABASE_API_KEY) throw new Error('Env var SUPABASE_API_KEY missing');
+if (!PINECONE_URL) throw new Error('Env var PINECONE_URL missing');
+if (!PINECONE_API_KEY) throw new Error('Env var PINECONE_API_KEY missing');
 
-const client = createClient(SUPABASE_URL, SUPABASE_API_KEY);
-
-const query = (vector: number[]) => supabase.query({ client, namespace, vector });
+const query = (vector: number[]) => pinecone.query({ url: PINECONE_URL, token: PINECONE_API_KEY, namespace, vector });
 
 export const config = {
   runtime: 'edge'
